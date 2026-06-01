@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,22 @@ Route::middleware('auth')->group(function () {
 
     // Candidatures — CRUD complet
     Route::resource('applications', ApplicationController::class);
+
+    // Entretiens
+    Route::get('/interviews/create', [InterviewController::class, 'create'])
+        ->name('interviews.create');
+
+    Route::post('/interviews', [InterviewController::class, 'store'])
+        ->name('interviews.store');
+
+    Route::get('/interviews/{interview}/edit', [InterviewController::class, 'edit'])
+        ->name('interviews.edit');
+
+    Route::put('/interviews/{interview}', [InterviewController::class, 'update'])
+        ->name('interviews.update');
+
+    Route::delete('/interviews/{interview}', [InterviewController::class, 'destroy'])
+        ->name('interviews.destroy');
 });
 
 require __DIR__.'/auth.php';

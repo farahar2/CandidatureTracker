@@ -84,53 +84,59 @@
                 @endif
             </div>
 
-            {{-- Section Entretiens --}}
-            <div class="bg-white shadow-sm rounded-lg p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-gray-800">Entretiens</h3>
-                    <a href="{{ route('interviews.create', ['application' => $application->id]) }}"
-                       class="px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded-md hover:bg-gray-700">
-                        + Ajouter un entretien
-                    </a>
-                </div>
+          {{-- Section Entretiens --}}
+<div class="bg-white shadow-sm rounded-lg p-6">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-800">Entretiens</h3>
+        <a href="{{ route('interviews.create', ['application' => $application->id]) }}"
+           class="px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded-md hover:bg-gray-700">
+            + Ajouter un entretien
+        </a>
+    </div>
 
-                @forelse($application->interviews as $interview)
-                    <div class="border border-gray-200 rounded-md p-4 mb-3">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="font-medium text-gray-900">
-                                    {{ App\Models\Interview::TYPE_LABELS[$interview->type] ?? $interview->type }}
-                                </p>
-                                <p class="text-sm text-gray-500">
-                                    {{ $interview->scheduled_at->format('d/m/Y à H:i') }}
-                                </p>
-                                @if($interview->notes)
-                                    <p class="text-sm text-gray-600 mt-1">{{ $interview->notes }}</p>
-                                @endif
-                            </div>
-                            <div class="flex gap-2 items-center">
-                                <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">
-                                    {{ App\Models\Interview::RESULT_LABELS[$interview->result] ?? 'En attente' }}
-                                </span>
-                                <a href="{{ route('interviews.edit', $interview) }}"
-                                   class="text-yellow-600 hover:underline text-sm">Modifier</a>
-                                <form method="POST" action="{{ route('interviews.destroy', $interview) }}"
-                                      onsubmit="return confirm('Supprimer cet entretien ?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline text-sm">
-                                        Supprimer
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-gray-400 text-center py-6">
-                        Aucun entretien enregistré pour cette candidature.
+    @forelse($application->interviews as $interview)
+        <div class="border border-gray-200 rounded-md p-4 mb-3">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="font-medium text-gray-900">
+                        {{ $interview->type_label }}
                     </p>
-                @endforelse
+                    <p class="text-sm text-gray-500">
+                        {{ $interview->scheduled_at->format('d/m/Y à H:i') }}
+                    </p>
+                    @if($interview->notes)
+                        <p class="text-sm text-gray-600 mt-2">
+                            {{ $interview->notes }}
+                        </p>
+                    @endif
+                </div>
+                <div class="flex gap-3 items-center">
+                    <span class="text-xs px-2 py-1 rounded-full
+                        bg-{{ $interview->result_color }}-100
+                        text-{{ $interview->result_color }}-800">
+                        {{ $interview->result_label }}
+                    </span>
+                    <a href="{{ route('interviews.edit', $interview) }}"
+                       class="text-yellow-600 hover:underline text-sm">
+                        Modifier
+                    </a>
+                    <form method="POST" action="{{ route('interviews.destroy', $interview) }}"
+                          onsubmit="return confirm('Supprimer cet entretien ?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-600 hover:underline text-sm">
+                            Supprimer
+                        </button>
+                    </form>
+                </div>
             </div>
+        </div>
+    @empty
+        <p class="text-gray-400 text-center py-6">
+            Aucun entretien enregistré pour cette candidature.
+        </p>
+    @endforelse
+</div>
 
             {{-- Retour --}}
             <div>
