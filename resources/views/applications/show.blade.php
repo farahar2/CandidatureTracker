@@ -94,7 +94,7 @@
             <div class="card p-4">
                 <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Date de candidature</p>
                 <p class="text-sm font-semibold text-gray-900">
-                    {{ $application->applied_at->format('d MMMM Y') }}
+                    {{ $application->applied_at->format('d F Y') }}
                 </p>
             </div>
 
