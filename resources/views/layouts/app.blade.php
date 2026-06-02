@@ -7,188 +7,260 @@
     <title>{{ config('app.name', 'CandidatureTracker') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="h-full bg-gray-50/50 antialiased">
 
-<div class="flex h-full" x-data="{ sidebarOpen: false }">
+<body class="h-full bg-gray-50" x-data="{ sidebarOpen: false }">
 
-    {{-- ===== SIDEBAR — DESKTOP ===== --}}
-    <aside class="hidden lg:flex lg:flex-col lg:w-[260px] lg:fixed lg:inset-y-0 bg-white border-r border-gray-100 z-30">
+    <div class="flex h-full">
 
-        {{-- Logo --}}
-        <div class="flex items-center h-16 px-5">
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 group">
-                <div class="w-9 h-9 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/30 transition-shadow">
-                    <i data-lucide="clipboard-check" class="w-5 h-5 text-white"></i>
-                </div>
-                <span class="text-base font-bold text-gray-900">CandidatureTracker</span>
-            </a>
-        </div>
+        {{-- ===== SIDEBAR DESKTOP ===== --}}
+        <aside class="hidden lg:flex lg:flex-col w-60 shrink-0 bg-white border-r border-gray-200 fixed inset-y-0 left-0 z-30">
 
-        {{-- Navigation --}}
-        <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-
-            <p class="px-3 mb-2 text-[11px] font-semibold text-gray-400 uppercase tracking-widest">
-                Principal
-            </p>
-
-            <a href="{{ route('dashboard') }}"
-               class="{{ request()->routeIs('dashboard') ? 'nav-item-active' : 'nav-item' }}">
-                <i data-lucide="layout-dashboard" class="w-5 h-5 shrink-0"></i>
-                Tableau de bord
-            </a>
-
-            <a href="{{ route('applications.index') }}"
-               class="{{ request()->routeIs('applications.index', 'applications.show') ? 'nav-item-active' : 'nav-item' }}">
-                <i data-lucide="file-text" class="w-5 h-5 shrink-0"></i>
-                Mes candidatures
-            </a>
-
-            <a href="{{ route('applications.create') }}"
-               class="{{ request()->routeIs('applications.create') ? 'nav-item-active' : 'nav-item' }}">
-                <i data-lucide="plus-circle" class="w-5 h-5 shrink-0"></i>
-                Nouvelle candidature
-            </a>
-
-            <div class="pt-4 mt-4 border-t border-gray-100">
-                <p class="px-3 mb-2 text-[11px] font-semibold text-gray-400 uppercase tracking-widest">
-                    Gestion
-                </p>
-
-                <a href="{{ route('applications.archived') }}"
-                   class="{{ request()->routeIs('applications.archived') ? 'nav-item-active' : 'nav-item' }}">
-                    <i data-lucide="archive" class="w-5 h-5 shrink-0"></i>
-                    Archives
+            {{-- Logo --}}
+            <div class="flex items-center h-16 px-5 border-b border-gray-100 shrink-0">
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                    </div>
+                    <span class="text-base font-bold text-gray-900">CandidatureTracker</span>
                 </a>
             </div>
 
-        </nav>
+            {{-- Navigation --}}
+            <nav class="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
 
-        {{-- User --}}
-        <div class="px-3 py-4 border-t border-gray-100">
-            <div class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors group cursor-pointer"
-                 x-data="{ open: false }" @click="open = !open">
+                <p class="px-3 mb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
+                    Principal
+                </p>
 
-                <div class="w-9 h-9 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-xl flex items-center justify-center shrink-0">
-                    <span class="text-xs font-bold text-indigo-700">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
-                    </span>
+                <a href="{{ route('dashboard') }}"
+                   class="{{ request()->routeIs('dashboard') ? 'nav-link-active' : 'nav-link' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                              d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                        <polyline stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                                  points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    Tableau de bord
+                </a>
+
+                <a href="{{ route('applications.index') }}"
+                   class="{{ request()->routeIs('applications.index', 'applications.show', 'applications.edit') ? 'nav-link-active' : 'nav-link' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Mes candidatures
+                </a>
+
+                <a href="{{ route('applications.create') }}"
+                   class="{{ request()->routeIs('applications.create') ? 'nav-link-active' : 'nav-link' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke-width="1.75"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 8v8M8 12h8"/>
+                    </svg>
+                    Nouvelle candidature
+                </a>
+
+                <div class="pt-4 mt-2">
+                    <p class="px-3 mb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
+                        Gestion
+                    </p>
+
+                    <a href="{{ route('applications.archived') }}"
+                       class="{{ request()->routeIs('applications.archived') ? 'nav-link-active' : 'nav-link' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                                  d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+                        </svg>
+                        Archives
+                    </a>
                 </div>
 
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                    <p class="text-xs text-gray-400 truncate">{{ Auth::user()->email }}</p>
-                </div>
+            </nav>
 
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" title="Déconnexion"
-                            class="text-gray-300 hover:text-red-500 transition-colors">
-                        <i data-lucide="log-out" class="w-4 h-4"></i>
+            {{-- User info --}}
+            <div class="shrink-0 px-3 py-4 border-t border-gray-100">
+                <div class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
+                        <span class="text-xs font-bold text-blue-700">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                        </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-900 truncate leading-none mb-0.5">
+                            {{ Auth::user()->name }}
+                        </p>
+                        <p class="text-xs text-gray-400 truncate leading-none">
+                            {{ Auth::user()->email }}
+                        </p>
+                    </div>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" title="Se déconnecter"
+                                class="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </aside>
+
+        {{-- ===== MOBILE OVERLAY ===== --}}
+        <div x-show="sidebarOpen"
+             x-transition:enter="transition-opacity duration-200"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             @click="sidebarOpen = false"
+             class="fixed inset-0 bg-black/40 backdrop-blur-sm z-20 lg:hidden"
+             style="display: none;">
+        </div>
+
+        {{-- ===== MOBILE SIDEBAR ===== --}}
+        <aside x-show="sidebarOpen"
+               x-transition:enter="transition transform duration-200"
+               x-transition:enter-start="-translate-x-full"
+               x-transition:enter-end="translate-x-0"
+               x-transition:leave="transition transform duration-200"
+               x-transition:leave-start="translate-x-0"
+               x-transition:leave-end="-translate-x-full"
+               class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 z-30 flex flex-col lg:hidden shadow-xl"
+               style="display: none;">
+
+            <div class="flex items-center justify-between h-16 px-5 border-b border-gray-100">
+                <span class="text-base font-bold text-gray-900">CandidatureTracker</span>
+                <button @click="sidebarOpen = false"
+                        class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="flex-1 px-3 py-5 space-y-0.5">
+                <a href="{{ route('dashboard') }}"
+                   class="{{ request()->routeIs('dashboard') ? 'nav-link-active' : 'nav-link' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                              d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    </svg>
+                    Tableau de bord
+                </a>
+                <a href="{{ route('applications.index') }}"
+                   class="{{ request()->routeIs('applications.*') ? 'nav-link-active' : 'nav-link' }}">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Mes candidatures
+                </a>
+                <a href="{{ route('applications.create') }}" class="nav-link">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Nouvelle candidature
+                </a>
+                <a href="{{ route('applications.archived') }}" class="nav-link">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                              d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+                    </svg>
+                    Archives
+                </a>
+            </nav>
+
+            <div class="px-3 py-4 border-t border-gray-100">
+                <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span class="text-xs font-bold text-blue-700">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                        </span>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-900 truncate flex-1">{{ Auth::user()->name }}</p>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="p-1.5 text-gray-400 hover:text-red-500 rounded-lg transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </aside>
+
+        {{-- ===== MAIN CONTENT ===== --}}
+        <div class="flex-1 flex flex-col min-h-full lg:ml-60">
+
+            {{-- TOPBAR --}}
+            <header class="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-gray-200 shrink-0">
+                <div class="flex items-center h-16 px-4 sm:px-6 lg:px-8 gap-4">
+
+                    <button @click="sidebarOpen = true"
+                            class="lg:hidden p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
                     </button>
-                </form>
-            </div>
+
+                    <div class="flex-1 min-w-0">
+                        @isset($header)
+                            <div class="animate-fade-in">
+                                {{ $header }}
+                            </div>
+                        @endisset
+                    </div>
+
+                </div>
+            </header>
+
+            {{-- PAGE CONTENT --}}
+            <main class="flex-1 p-4 sm:p-6 lg:p-8 animate-fade-up">
+
+                @if(session('success'))
+                    <div class="alert-success mb-6"
+                         x-data="{ show: true }"
+                         x-show="show"
+                         x-init="setTimeout(() => show = false, 4000)"
+                         x-transition:leave="transition-opacity duration-300"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0">
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert-error mb-6">
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                {{ $slot }}
+
+            </main>
+
         </div>
 
-    </aside>
-
-    {{-- ===== MOBILE OVERLAY ===== --}}
-    <div x-show="sidebarOpen"
-         x-transition:enter="transition-opacity duration-200"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="transition-opacity duration-200"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-20 lg:hidden"
-         @click="sidebarOpen = false">
     </div>
-
-    {{-- MOBILE SIDEBAR --}}
-    <aside x-show="sidebarOpen"
-           x-transition:enter="transition ease-out duration-200 transform"
-           x-transition:enter-start="-translate-x-full"
-           x-transition:enter-end="translate-x-0"
-           x-transition:leave="transition ease-in duration-200 transform"
-           x-transition:leave-start="translate-x-0"
-           x-transition:leave-end="-translate-x-full"
-           class="fixed inset-y-0 left-0 w-72 bg-white border-r border-gray-100 z-30 lg:hidden shadow-xl">
-
-        <div class="flex items-center justify-between h-16 px-5">
-            <span class="text-base font-bold text-gray-900">CandidatureTracker</span>
-            <button @click="sidebarOpen = false" class="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-        </div>
-
-        <nav class="px-3 py-4 space-y-1">
-            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'nav-item-active' : 'nav-item' }}">
-                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-                Tableau de bord
-            </a>
-            <a href="{{ route('applications.index') }}" class="{{ request()->routeIs('applications.*') ? 'nav-item-active' : 'nav-item' }}">
-                <i data-lucide="file-text" class="w-5 h-5"></i>
-                Mes candidatures
-            </a>
-            <a href="{{ route('applications.create') }}" class="nav-item">
-                <i data-lucide="plus-circle" class="w-5 h-5"></i>
-                Nouvelle candidature
-            </a>
-            <a href="{{ route('applications.archived') }}" class="nav-item">
-                <i data-lucide="archive" class="w-5 h-5"></i>
-                Archives
-            </a>
-        </nav>
-    </aside>
-
-    {{-- ===== MAIN CONTENT ===== --}}
-    <div class="flex-1 flex flex-col lg:pl-[260px]">
-
-        {{-- TOPBAR --}}
-        <header class="sticky top-0 z-10 flex items-center h-16 px-4 sm:px-6 bg-white/80 backdrop-blur-xl border-b border-gray-100 gap-4">
-
-            <button @click="sidebarOpen = true"
-                    class="lg:hidden p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition">
-                <i data-lucide="menu" class="w-5 h-5"></i>
-            </button>
-
-            <div class="flex-1">
-                @isset($header)
-                    {{ $header }}
-                @endisset
-            </div>
-
-        </header>
-
-        {{-- PAGE CONTENT --}}
-        <main class="flex-1 px-4 sm:px-6 py-6 animate-fade-in">
-
-            @if(session('success'))
-                <div class="mb-5 flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 text-sm animate-fade-up"
-                     x-data="{ show: true }"
-                     x-show="show"
-                     x-init="setTimeout(() => show = false, 5000)"
-                     x-transition:leave="transition ease-in duration-200"
-                     x-transition:leave-start="opacity-100 transform translate-y-0"
-                     x-transition:leave-end="opacity-0 transform -translate-y-2">
-                    <i data-lucide="check-circle" class="w-4 h-4 shrink-0"></i>
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="mb-5 flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm animate-fade-up">
-                    <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
-                    {{ session('error') }}
-                </div>
-            @endif
-
-            {{ $slot }}
-
-        </main>
-
-    </div>
-
-</div>
 
 </body>
 </html>

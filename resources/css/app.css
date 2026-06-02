@@ -277,4 +277,95 @@
         @apply flex items-center gap-3 px-3 py-2.5 text-sm font-medium
                bg-indigo-50 text-indigo-700 rounded-xl;
     }
+
+    /* Sidebar navigation (used in app.blade.php sidebar) */
+    .nav-link {
+        @apply flex items-center gap-3 px-3 py-2.5 text-sm font-medium
+               text-gray-600 rounded-xl
+               hover:bg-gray-100 hover:text-gray-900
+               transition-all duration-200;
+    }
+
+    .nav-link-active {
+        @apply flex items-center gap-3 px-3 py-2.5 text-sm font-medium
+               bg-indigo-50 text-indigo-700 rounded-xl
+               transition-all duration-200;
+    }
+
+    /* Badge variants */
+    .badge-wishlist {
+        @apply badge bg-gray-100 text-gray-600;
+    }
+    .badge-applied {
+        @apply badge bg-blue-50 text-blue-700;
+    }
+    .badge-interview {
+        @apply badge bg-amber-50 text-amber-700;
+    }
+    .badge-offer {
+        @apply badge bg-green-50 text-green-700;
+    }
+    .badge-accepted {
+        @apply badge bg-emerald-50 text-emerald-700;
+    }
+    .badge-rejected {
+        @apply badge bg-red-50 text-red-700;
+    }
+    .badge-low {
+        @apply badge bg-gray-100 text-gray-500;
+    }
+    .badge-medium {
+        @apply badge bg-blue-50 text-blue-700;
+    }
+    .badge-high {
+        @apply badge bg-rose-50 text-rose-700;
+    }
+    .badge-pending {
+        @apply badge bg-gray-100 text-gray-500;
+    }
+    .badge-passed {
+        @apply badge bg-emerald-50 text-emerald-700;
+    }
+    .badge-failed {
+        @apply badge bg-red-50 text-red-700;
+    }
+
+    /* Page titles */
+    .page-title {
+        @apply text-xl font-bold text-gray-900;
+    }
+
+    .section-title {
+        @apply text-sm font-semibold text-gray-900;
+    }
+
+    /* Button sizes */
+    .btn-sm {
+        @apply px-3.5 py-2 text-xs;
+    }
+
+    .btn-lg {
+        @apply px-6 py-3 text-base;
+    }
+
+    /* Alerts */
+    .alert-success {
+        @apply flex items-center gap-2.5 px-4 py-3 bg-emerald-50 border border-emerald-200
+               text-emerald-700 text-sm font-medium rounded-xl;
+    }
+
+    .alert-error {
+        @apply flex items-center gap-2.5 px-4 py-3 bg-red-50 border border-red-200
+               text-red-700 text-sm font-medium rounded-xl;
+    }
+
+    /* Error state input */
+    .form-input-error {
+        @apply w-full px-4 py-3 text-sm text-gray-900 bg-red-50
+               border border-red-300 rounded-xl
+               placeholder-red-300
+               focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20
+               focus:border-red-400
+               transition-all duration-200;
+    }
 }
